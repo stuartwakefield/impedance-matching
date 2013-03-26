@@ -21,8 +21,19 @@ body {
 }
 .message-warning {
 	border-left: 5px solid #F90;
-	background: #FED;
+	background: #FFD;
 	color: #630;
+}
+.message-fatal {
+	border-left: 5px solid #C00;
+	background: #FEE;
+	color: #900;
+	font-weight: bold;
+}
+.message-success {
+	border-left: 5px solid #9C0;
+	background: #EFD;
+	color: #360;
 }
 form {
 	width: 240px;

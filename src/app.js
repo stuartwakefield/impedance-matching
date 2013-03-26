@@ -10,7 +10,7 @@ function App() {
 		var signalLoss = electronics.impedance.getSignalLoss(source, load);
 		var reflectionCoefficient = electronics.impedance.getReflectionCoefficient(source, load);
 		
-		var info = [], warnings = [];
+		var info = [], warnings = [], success = [], fatal = [];
 		
 		// get match information
 		info.push(["Source voltage", math.getRoundedValue(voltage, 3), "V"].join(" "));
@@ -23,23 +23,45 @@ function App() {
 		info.push(["Reflection coefficient", math.getRoundedValue(reflectionCoefficient, 3), ""].join(" "));
 		
 		// validate match
+		if(source > load) {
+			fatal.push("Impedance mismatch, overload!");
+		}
+		if(reflectionCoefficient === -1) {
+			fatal.push("Short circuit!");
+		}
+		
 		if(signalLoss < -6) {
 			warnings.push("Signal loss over 6 dB");
 		}
-		if(source > load) {
-			warnings.push("Impedance mismatch, overload!");
+		if(reflectionCoefficient === 1) {
+			warnings.push("Open circuit! No source...");
 		}
 		if(powerRatio < 0.03) {
 			warnings.push("Less than 3% power is reaching the load");
 		}
-		if(reflectionCoefficient === -1) {
-			warnings.push("Short circuit!");
+		
+		if(signalLoss > -6) {
+			success.push("Signal loss under 6 dB");
 		}
-		if(reflectionCoefficient === 1) {
-			warnings.push("Open circuit! No source");
+		if(reflectionCoefficient === 0) {
+			success.push("No signal reflection");
+		}
+		if(powerRatio > 90) {
+			success.push("Transferred over 90% of maximum power");
+		}
+		if(source < load) {
+			success.push("Within safe limits");
 		}
 		
 		var frag = document.createDocumentFragment();
+		
+		for(var i = 0; i < fatal.length; ++i) {
+			frag.appendChild($('<p class="message message-fatal"/>').text(fatal[i]).get(0));
+		}
+		
+		for(var i = 0; i < success.length; ++i) {
+			frag.appendChild($('<p class="message message-success"/>').text(success[i]).get(0));
+		}		
 		
 		for(var i = 0; i < warnings.length; ++i) {
 			frag.appendChild($('<p class="message message-warning"/>').text(warnings[i]).get(0));

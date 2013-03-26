@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="style/style.css"/>
+		<script src="lib/jquery.min.js"></script>
+		<script src="src/math.js"></script>
+		<script src="src/electronics/impedance.js"></script>
+		<script src="src/app.js"></script>
+		<script>
+			(function() {
+				(new App()).main()
+			}) ();
+		</script>
+	</head>
+	<body>
+		<h1>Impedance matching</h1>
+		<form action="" method="get">
+			<div class="content">
+				<label for="device-voltage">Voltage</label>
+				<input type="number" id="device-voltage" name="voltage" value="230"/>
+				<label for="device-voltage">V</label>
+			</div>
+			<div class="content">
+				<label for="device-source-impedance">Device A source impedance</label>	
+				<input type="number" id="device-source-impedance" name="source" value="1000"/>	
+				<label for="device-source-impedance">&ohm;</label>	
+			</div>
+			<div class="content">
+				<label for="device-load-impedance">Device B load impedance</label>	
+				<input type="number" id="device-load-impedance" name="load" value="10000"/>	
+				<label for="device-load-impedance">&ohm;</label>	
+			</div>
+			<div class="content">
+				<button type="submit">Test</button>			
+			</div>
+		</form>
+		<div id="details"></div>
+	</body>
+</html>

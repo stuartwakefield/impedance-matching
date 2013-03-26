@@ -17,10 +17,12 @@ body {
 .message-info {
 	border-left: 5px solid #069;
 	background: #DEF;
+	color: #036;
 }
 .message-warning {
 	border-left: 5px solid #F90;
 	background: #FED;
+	color: #630;
 }
 form {
 	width: 240px;

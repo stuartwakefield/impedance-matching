@@ -32,6 +32,12 @@ function App() {
 		if(powerRatio < 0.03) {
 			warnings.push("Less than 3% power is reaching the load");
 		}
+		if(reflectionCoefficient === -1) {
+			warnings.push("Short circuit!");
+		}
+		if(reflectionCoefficient === 1) {
+			warnings.push("Open circuit! No source");
+		}
 		
 		var frag = document.createDocumentFragment();
 		
